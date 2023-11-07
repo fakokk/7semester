@@ -1,4 +1,7 @@
-﻿#include <iostream>
+//шифр Цезаря
+//не работает со строками, введеными с консоли
+
+#include <iostream>
 #include <string.h>
 
 using namespace std;
