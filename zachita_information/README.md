@@ -5,6 +5,7 @@
 `Сделано` 2. Шифр Виженера 
 
 `Не сделано` 3. Блочные шифры (SP-сеть)
+- char to html code - https://stackoverflow.com/questions/25145311/how-to-convert-unicode-characters-to-html-encoding-c
 
 `Не сделано` 4. Потоковые шифры
 
