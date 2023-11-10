@@ -6,7 +6,7 @@
 
 `Не сделано` 3. Блочные шифры (SP-сеть)
 - char to html code: https://stackoverflow.com/questions/25145311/how-to-convert-unicode-characters-to-html-encoding-c
-- классная презентация по приниципу построения SP-сети: http://www.myshared.ru/slide/681591/
+- презентация по приниципу построения SP-сети: http://www.myshared.ru/slide/681591/
 
 `Не сделано` 4. Потоковые шифры
 
