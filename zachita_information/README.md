@@ -2,7 +2,7 @@
 ## Список лабораторных
 `✓ — Зачтено` 1. Шифр Цезаря 
 
-`Сделано` 2. Шифр Виженера 
+`✓ — Зачтено` 2. Шифр Виженера 
 
 `В процессе` 3. Блочные шифры (SP-сеть)
 - char to html code: https://stackoverflow.com/questions/25145311/how-to-convert-unicode-characters-to-html-encoding-c
