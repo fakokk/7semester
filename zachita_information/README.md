@@ -9,6 +9,8 @@
 - презентация по приниципу построения SP-сети: http://www.myshared.ru/slide/681591/
 - прикольная статья: https://files.student-it.ru/previewfile/154201/3
 - 0010000010001001001100000110100
+- ![Uploading image.png…]()
+
 
 `Не сделано` 4. Потоковые шифры
 
