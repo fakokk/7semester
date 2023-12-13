@@ -1,125 +1,263 @@
-﻿#include <iostream>
-#include <list>
+#include <iostream>
 #include <bitset>
-#include <cstdlib>
-#include <random>
+//#include
 
 using namespace std;
 
-list<int>list1 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+string message_32, message_P, message_S;
 
-list<int>list2 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
+string  mess_p1, mess_p2,   //разбиваем последовательность
+        mess_p3, mess_p4,   //по 4 бита
+        mess_p5, mess_p6,
+        mess_p7, mess_p8;
+string sh_char1, sh_char2;  //символы получаемые в конце
 
-//фигулина для рандома
-random_device rd;
-mt19937 gen(rd());
+int m[8];   //элементы в s-блоке, 10сс числа
 
+//перестановки
+int p8[] = { 0, 8, 4, 1,
+             10, 2, 5, 9};
 
-//по заданному символу возвращает 16 - разрядную последовательность 
-//нулей и единиц(строку), являющуюся двоичным представлением кода заданного символа.
-string char_to_binary16(char a)
+int p32[] = { 3, 10, 13, 7, 18, 17, 15, 6,
+              8, 11, 14, 16, 9, 21, 27, 31,
+              19,29, 5, 24, 25, 12, 23, 26,
+              1, 20, 2, 30, 22, 28, 0, 4 };
+
+string char_to_bin(char a)
 {
-    //получаем код элемента
-    int ASCII = (int)a;
-    //cout << ASCII << endl;
-    
-    //переводим в двоичный 16-разрядный код
+    int ASCII = int(a);
     string binary = "00000000" + bitset<8>(ASCII).to_string();
 
     return binary;
 }
 
-int random(int low, int high)
+char bin_to_char(string binary)
 {
-    uniform_int_distribution<> dist(low, high);
-    return dist(gen);
+    int value = 0;
+    int base = 1;
+    int len = binary.length();
+
+    for (int i = len - 1; i >= 0; i--) 
+    {
+        // If the current bit is 1
+        if (binary[i] == '1')
+            value += base;
+        base = base * 2;
+    }
+
+    char a = char(value);
+    return a;
 }
 
-//функция перемешивания элементов s1
-string s1_to_s2(string s1, string s2, int m[33])
+void message_to_binary_code(string message)
 {
-    char a;
+    string code1, code2;
+
+    char a = message[0];
+    char b = message[1];
+
+    code1 = char_to_bin(a);
+    code2 = char_to_bin(b);
+
+    message_32 = code1 + code2;
+
+    //0000.0000.1100.0110.0000.0000.1100.1111
+    cout << "message 32 bit: " << message_32 << endl;
+}
+
+void binary_code_to_message()
+{
+    //10101110001010100000001110010000
+    string s;
+    sh_char1 = message_P.substr(0,16);
+    sh_char2 = message_P.substr(16, 16);
+
+    s = bin_to_char(sh_char1) + bin_to_char(sh_char2);
+    
+    cout << endl<<  "Shifr string:" << bin_to_char(sh_char1) << "." << bin_to_char(sh_char2) << endl << endl;
+} 
+
+//шифрующий р-блок
+void P_block()
+{
     int j;
-    bool g = false;
-    //две строки, биту из первого присваиваем рандомное значение во втором
+
     for (int i = 0; i < 32; i++)
     {
-        a = s1[i];
-        g = false;
-
-        do
-        {
-            //рандомно генерируем индекс элемента
-            j = random(0, 32);
-
-            //если сюда еще не был помещен бит из s1
-            if (s2[j] == 'a')
-            {
-                //присваиваем текущее значение s1
-                //позиция рандомно выбранного элемента
-                s2[j] = a;
-
-                
-
-                //флаг, обозначили что этот элемент уже нашел свое место
-                g = true;
-            }
-        } while (g == false);
-
-        //для последующего восстановления последовательности
-        m[i] = j;
-        //m[j][1] = j;
+        //берем индекс из перестановки
+        j = p32[i];
+        //ставим ему в соответствие бит из s1
+        message_P = message_P + message_32[j];
     }
-    return s2;
+
+    //0010.0000.1010.1001.0101.1000.0001.0100
+    cout << "message after P-block: " << message_P << endl;
 }
 
-//восстановление s1 по s2
-void m2_to_m1(string s1, string s2)
+//p-блок, отвещающий за дешифровку сообщения
+void P_block_de()
 {
+    message_32 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
+    int j;
+    for (int i = 0; i < 32; i++)
+    {
+        //берем индекс из перестановки
+        j = p32[i];
+        //ставим ему в соответствие бит из s1
+        message_32[j] = message_P[i];
+    }
+
+    //0010.0000.1010.1001.0101.1000.0001.0100 - 1 результат
+    //
+    message_P = message_32;
+    cout << "message after P-block: " << message_P;
+}
+
+void message_P_to_4bit()
+{
+    mess_p1 = message_P.substr(0, 4);
+    mess_p2 = message_P.substr(4, 4);
+    mess_p3 = message_P.substr(8, 4);
+    mess_p4 = message_P.substr(12, 4);
+    mess_p5 = message_P.substr(16, 4);
+    mess_p6 = message_P.substr(20, 4);
+    mess_p7 = message_P.substr(24, 4);
+    mess_p8 = message_P.substr(28, 4);
+
+    //вывод для проверки правильности разбиения на микро-последовательности
+    //cout << "P block: " << mess_p1 << " " << mess_p2 << " " << mess_p3 << " " << mess_p4 << " " << mess_p5 << " " << mess_p6 << " " << mess_p7 << " " << mess_p8;
+}
+
+//перевод числа из 2сс в 10сс
+int bin_to_dec(string bin)
+{
+    int a = 0;
+
+    for (int i = 0; i < bin.size(); i++)
+    {
+        a = a * 2 + (bin[i] - '0');
+    }
+    
+    return a;
+}
+
+//перевод числа из 10сс в 2сс
+string dec_to_bin(int dec)
+{
+    int i = 0, a = 0;
+    string s, s0;
+
+    for (int temp = 32768; temp > 0; temp = temp / 2)
+    {
+        if (temp & dec)
+        {
+            s = s + "1";
+        }
+        else
+        {
+            s = s + "0";
+        }
+    }
+
+    int str_size = s.size() - 4;
+    s0 = s.substr(str_size, 4);
+
+    return s0;
 }
 
 void S_block()
 {
+    //каждое число переводится в 10сс
+    m[0] = bin_to_dec(mess_p1);//2
+    m[1] = bin_to_dec(mess_p2);//0
+    m[2] = bin_to_dec(mess_p3);//10
+    m[3] = bin_to_dec(mess_p4);//9
+    m[4] = bin_to_dec(mess_p5);//5
+    m[5] = bin_to_dec(mess_p6);//8
+    m[6] = bin_to_dec(mess_p7);//1
+    m[7] = bin_to_dec(mess_p8);//4
+
+    int j = 0;
+    string s;
+
+    int arr[8];
+
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (m[i] == p8[j])
+                arr[i] = j;
+        };
+    }
+
+    //0101.0000.0100.0111.0110.0001.0011.0010
+    message_32 = dec_to_bin(arr[0]) + dec_to_bin(arr[1]) + dec_to_bin(arr[2]) + dec_to_bin(arr[3])
+        + dec_to_bin(arr[4]) + dec_to_bin(arr[5]) + dec_to_bin(arr[6]) + dec_to_bin(arr[7]);
+
+    cout << "32bit p block: " << message_32 << endl;
+
+}
+
+void S_block_de()
+{
+    //каждое число переводится в 10сс
+    m[0] = bin_to_dec(mess_p1);//2
+    m[1] = bin_to_dec(mess_p2);//0
+    m[2] = bin_to_dec(mess_p3);//10
+    m[3] = bin_to_dec(mess_p4);//9
+    m[4] = bin_to_dec(mess_p5);//5
+    m[5] = bin_to_dec(mess_p6);//8
+    m[6] = bin_to_dec(mess_p7);//1
+    m[7] = bin_to_dec(mess_p8);//4
+
+    int j;
+    string s;
+
+    int arr[8];
+
+    for (int i = 0; i < 8; i++)
+    {
+       j = m[i];
+       arr[i] = p8[j];
+    }
+
+    //0000.1000.0100.0001.1010.0010.0101.1001
+    //0 8 4 1 10 2 5 9 - было
+    //0010.0000.1010.1001.0101.1000.0001.0100
+    //2 0 10 9 5 8 1 4 - стало
+    message_P = dec_to_bin(arr[0]) + dec_to_bin(arr[1]) + dec_to_bin(arr[2]) + dec_to_bin(arr[3])
+        + dec_to_bin(arr[4]) + dec_to_bin(arr[5]) + dec_to_bin(arr[6]) + dec_to_bin(arr[7]);
+
+    cout << "32bit p block: " << message_P << endl;
 
 }
 
 
-
 int main()
 {
+    //зашифрование сообщения
 
     string message = "ЖП";
-    string message1, message2, message32bit;
-    string message_after_random = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    // По заданной текстовой строке, состоящей из двух символов, возвращает
-    // строку, зашифрованную с помощью SP - сети, состоящей из двух P - блоков и промежуточной батареи S - блоков.
 
-    char a = message[0]; //1100.0110//0000.0000.1100.0110//Ж
-    char b = message[1]; //1100.1111//0000.0000.1100.1111//П
-
-    message1 = char_to_binary16(a);//Ж
-    message2 = char_to_binary16(b);//П
-
-    //конкатенация строк для получения
-    //32-разрядной последовательности
-    message32bit = message1 + message2;
-
-    //массив соответствия индексов 
-    //по нему можно восстановить начальную последовательность
-    int m[33];
-
-    //перемешивание элементов, возвращает s2
-    cout << "message_after_random: " << s1_to_s2(message32bit, message_after_random, m) << endl;
-
-    for (int i = 0; i < 32; i++)
-    {
-            cout << m[i] << " ";
-    }
+    message_to_binary_code(message);
+    P_block();
+    message_P_to_4bit();
+    S_block();
+    message_P.clear();
+    P_block();
+    binary_code_to_message();
     
+    //расшифрование сообщения
 
-    //По заданной двухбуквенной строке, зашифрованной с помощью с помощью
-    //SP - сети, состоящей из двух P - блоков и промежуточной батареи S - блоков, возвращает строку - оригинал.
+    cout << endl << "dechifr: " << endl;
+
+    P_block_de();
+    cout << endl;
+    message_P_to_4bit();
+    S_block_de();
+    P_block_de();
+    binary_code_to_message();
 
 }
