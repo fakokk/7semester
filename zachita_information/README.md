@@ -5,6 +5,7 @@
 `✓ — Зачтено` 2. Шифр Виженера 
 
 `Не сделано` 3. Афинный шифр
+- хорошее видео с примером - https://www.youtube.com/watch?v=RhcBNHXkU5Y 
 
 `✓ — Зачтено` 4. Блочные шифры (SP-сеть)
 - char to html code: https://stackoverflow.com/questions/25145311/how-to-convert-unicode-characters-to-html-encoding-c
