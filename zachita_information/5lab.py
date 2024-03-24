@@ -56,8 +56,6 @@ def str2bin(message):
     for i in range(len(str)):
       num += int(str[i]) * (2 ** i)
     result.append(num)
-    
-  print("New message 2ns:\n", unsplit)
   return result
 
 #биты в число
@@ -78,8 +76,6 @@ def bin2str(message):
 
     symbols += chr(bit)
     num += 2
-  
-  print("Message: ", symbols)
   return symbols
 
 # зашифровка - {OR сообщения и гаммы
@@ -87,8 +83,6 @@ def encrypt(message, gamm):
   bytes = []
   for i in range(len(message)):
     bytes.append(message[i] ^ gamm[i])
-  
-  print("Encrypt message:\n", enc)
   return bytes
 
 # расшифровка сообщения - XOR зашифрованного сообщения и гаммы
@@ -96,8 +90,6 @@ def decrypt(message, gamm):
   bytes = []
   for i in range(len(message)):
     bytes.append(message[i] ^ gamm[i])
-  
-  print("Descrypt message:\n", decr)
   return bytes
 
 
@@ -130,24 +122,29 @@ def main():
   print()
   #зашифровываем сооьбщение
   enc = encrypt(split, gamma)
+  print("Encrypt message:\n", enc)
 
   print()
   #перевод числа в строку
   symbols = bin2str(enc)
+  print("New message: ", symbols)
 
   print()
 
   #переводим строку обратно в двоичное число
   unsplit = str2bin(symbols)
+  print("New message 2ns:\n", unsplit)
  
   print()
   
   #расшифровка
   decr = decrypt(unsplit, gamma)
+  print("Descrypt message:\n", decr)
 
   print()
   #переводим число в строку
   end = bin2str(decr)
+  print("Your message:\n", end)
 
   print()
 
