@@ -4,20 +4,24 @@ key = []
 gen = []
 gamma = []
 
-# штука для генерации ключа
+#генерация ключа, перестановка от 0 до 255
 def generate_key():
   for i in range(256):
     key.append(i)
   random.shuffle(key)
   for i in range(256):
     gen.append(key[i])
+  print("KEY: ", key[:10])
 
-# штука для генерации рандомных чиселок
+#инициализация генератора рандомных чисел 
 def generation_random_numbers():
   j = 0
   for i in range(256):
     j = (j + gen[i] + key[i]) % 256
+    #меняем местами
     gen[j], gen[i] = gen[i], gen[j]
+  
+  print("GEN: ", gen[:10])
   return gen
 
 #получение гаммы
@@ -32,9 +36,11 @@ def make_gamma(message, gen):
     temp[i], temp[j] = temp[j], temp[i]
     t = (temp[i] + temp[j]) % 256
     gamma.append(temp[t])
+  
+  print("Gamma:\n", gamma)
   return gamma
 
-#перевод строки в последовательность нулей и единиц
+#перевод строки в биты
 def str2bin(message):
   list = []
 
@@ -50,58 +56,66 @@ def str2bin(message):
     for i in range(len(str)):
       num += int(str[i]) * (2 ** i)
     result.append(num)
+    
+  print("New message 2ns:\n", unsplit)
   return result
 
-#преобразование последовательности нулей и единиц в число
+#биты в число
 def bin2str(message):
   symbols = ""
   num = 0
-  # пока не закончится строка
+  #до конца строки
   while num < len(message):
     bit1 = bin(message[num])[2:].zfill(8)
     bit2 = bin(message[num+1])[2:].zfill(8)
 
     number = bit1 + bit2
     number = number[::-1]
+    
     bit = 0
     for i in range(len(number)):
       bit += int(number[i]) * (2 ** i)
 
     symbols += chr(bit)
     num += 2
+  
+  print("Message: ", symbols)
   return symbols
 
-# зашифровка
+# зашифровка - {OR сообщения и гаммы
 def encrypt(message, gamm):
   bytes = []
   for i in range(len(message)):
     bytes.append(message[i] ^ gamm[i])
+  
+  print("Encrypt message:\n", enc)
   return bytes
 
-# расшифровка
+# расшифровка сообщения - XOR зашифрованного сообщения и гаммы
 def decrypt(message, gamm):
   bytes = []
   for i in range(len(message)):
     bytes.append(message[i] ^ gamm[i])
+  
+  print("Descrypt message:\n", decr)
   return bytes
 
 
 def main():
-  print("\n Лабораторная №4. Блочные шифры\n")
+  #генерация ключа
   generate_key()
 
-  print("KEY: ", key[:10])
-
+  #инициализация генератора случайных чисел
   generation_random_numbers()
-  print("GEN: ", gen[:10])
 
+  #получаем сообщение
   print()
   print("Enter message: ")
   message = input()
   # 
 
   print()
-  # здесь ord возвращает целое число unicode символа
+  #ord возвращает целое число unicode символа
   print("Message:", [ord(letter) for letter in message])
 
   print()
@@ -110,37 +124,30 @@ def main():
   print("Message to bin number:\n", split)
 
   print()
-  # генерим гамму
+  #получение гаммфы
   make_gamma(split, gen)
-  print("Gamma:\n", gamma)
 
   print()
-  # щифруем
+  #зашифровываем сооьбщение
   enc = encrypt(split, gamma)
-  print("Encrypt message:\n", enc)
 
   print()
-  # переводим число в строку, тут белиберда
-  # так и нужно
+  #перевод числа в строку
   symbols = bin2str(enc)
-  print("New message: ", symbols)
 
   print()
 
-  # здесь мы уже начинаем расшифровывать белиберду
+  #переводим строку обратно в двоичное число
   unsplit = str2bin(symbols)
-  #тут последовательность, чиселки как в прошлом шаге
-  print("New message 2ns:\n", unsplit)
-
+ 
   print()
-  # расшифровка
+  
+  #расшифровка
   decr = decrypt(unsplit, gamma)
-  print("Descrypt message:\n", decr)
 
   print()
-  # и снова чиселки переводим в сообщение
+  #переводим число в строку
   end = bin2str(decr)
-  print("Your message:\n", end)
 
   print()
 
