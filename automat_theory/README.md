@@ -1,1 +1,5 @@
-
+# Теория автоматов
+## Курсовая работа 
+ - Текстовик - https://docs.google.com/document/d/12kQhBD3ZDiyZchpB8teY9m_8TplCesIRJyTfa5AnTrQ/edit?tab=t.0 
+ - Диаграмма состояний
+ - Код
