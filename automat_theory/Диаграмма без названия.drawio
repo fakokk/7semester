@@ -1,0 +1,52 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 YaBrowser/24.10.0.0 Safari/537.36" version="25.0.3">
+  <diagram name="Страница — 1" id="53Bn_yMe42nu1hih1s0G">
+    <mxGraphModel dx="1982" dy="653" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="mA0ffu1mYUgRCF3ZFosH-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="mA0ffu1mYUgRCF3ZFosH-1" target="mA0ffu1mYUgRCF3ZFosH-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mA0ffu1mYUgRCF3ZFosH-5" value="regex" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="mA0ffu1mYUgRCF3ZFosH-4" vertex="1" connectable="0">
+          <mxGeometry x="-0.103" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mA0ffu1mYUgRCF3ZFosH-1" value="A" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="150" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Y_47CZw2U1_MUwq-zFdN-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="mA0ffu1mYUgRCF3ZFosH-3" target="Y_47CZw2U1_MUwq-zFdN-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y_47CZw2U1_MUwq-zFdN-6" value="regex" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Y_47CZw2U1_MUwq-zFdN-3">
+          <mxGeometry x="-0.0648" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mA0ffu1mYUgRCF3ZFosH-3" value="B" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="300" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Y_47CZw2U1_MUwq-zFdN-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Y_47CZw2U1_MUwq-zFdN-1" target="Y_47CZw2U1_MUwq-zFdN-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y_47CZw2U1_MUwq-zFdN-1" value="с" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Y_47CZw2U1_MUwq-zFdN-2" value="z" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="580" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Y_47CZw2U1_MUwq-zFdN-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Y_47CZw2U1_MUwq-zFdN-10" target="mA0ffu1mYUgRCF3ZFosH-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y_47CZw2U1_MUwq-zFdN-15" value="regex" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Y_47CZw2U1_MUwq-zFdN-11">
+          <mxGeometry x="-0.0567" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y_47CZw2U1_MUwq-zFdN-10" value="s" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
